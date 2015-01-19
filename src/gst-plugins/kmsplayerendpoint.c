@@ -533,6 +533,9 @@ kms_player_endpoint_started (KmsUriEndpoint * obj)
   /* Set internal pipeline to playing */
   gst_element_set_state (self->priv->pipeline, GST_STATE_PLAYING);
 
+  kms_utils_debug_graph_delay (GST_BIN (GST_ELEMENT_PARENT (self)), 2);
+  kms_utils_debug_graph_delay (GST_BIN (self->priv->pipeline), 2);
+
   KMS_URI_ENDPOINT_GET_CLASS (self)->change_state (KMS_URI_ENDPOINT (self),
       KMS_URI_ENDPOINT_STATE_START);
 }
