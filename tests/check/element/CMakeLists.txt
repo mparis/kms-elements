@@ -118,6 +118,19 @@ target_link_libraries(test_dtls
                       ${gstreamer-check-1.0_LIBRARIES}
                       ${gio-2.0_LIBRARIES})
 
+add_test_program (test_playerendpoint_error playerendpoint_error.c)
+add_dependencies(test_playerendpoint kmstestutils kmscore ${LIBRARY_NAME}plugins)
+target_include_directories(test_playerendpoint_error PRIVATE
+                           ${KmsGstCommons_INCLUDE_DIRS}
+                           ${gstreamer-1.0_INCLUDE_DIRS}
+                           ${gstreamer-check-1.0_INCLUDE_DIRS}
+                           "${CMAKE_CURRENT_SOURCE_DIR}/../../../src/gst-plugins")
+target_link_libraries(test_playerendpoint_error
+                      ${gstreamer-1.0_LIBRARIES}
+                      ${gstreamer-check-1.0_LIBRARIES}
+                      ${KmsGstCommons_LIBRARIES}
+                      kmstestutils)
+
 if (${ENABLE_DEBUGGING_TESTS})
   add_test_program (test_dtlssrtp dtlssrtp.c)
   add_dependencies(test_dtlssrtp rtcpdemux kmsdtls)
