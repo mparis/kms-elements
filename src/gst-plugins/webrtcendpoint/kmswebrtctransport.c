@@ -43,6 +43,8 @@ kms_webrtc_transport_destroy (KmsWebRtcTransport * tr)
   g_slice_free (KmsWebRtcTransport, tr);
 }
 
+/* inmediate-TODO: same pem for all transports in the same connection */
+
 KmsWebRtcTransport *
 kms_webrtc_transport_create (NiceAgent * agent, guint stream_id,
     guint component_id)
@@ -70,8 +72,8 @@ kms_webrtc_transport_create (NiceAgent * agent, guint stream_id,
       g_strdup_printf ("%s-%s-%" G_GUINT32_FORMAT "-%" G_GUINT32_FORMAT,
       GST_OBJECT_NAME (tr->dtlssrtpenc), GST_OBJECT_NAME (tr->dtlssrtpdec),
       stream_id, component_id);
-  g_object_set (G_OBJECT (tr->dtlssrtpenc), "channel-id", str, NULL);
-  g_object_set (G_OBJECT (tr->dtlssrtpdec), "channel-id", str, NULL);
+  g_object_set (G_OBJECT (tr->dtlssrtpenc), "connection-id", str, NULL);
+  g_object_set (G_OBJECT (tr->dtlssrtpdec), "connection-id", str, NULL);
   g_free (str);
 
   g_object_set (G_OBJECT (tr->nicesink), "agent", agent, "stream", stream_id,
