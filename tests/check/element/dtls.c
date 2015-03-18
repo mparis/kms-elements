@@ -188,10 +188,9 @@ GST_START_TEST (test_dtlsenc_init_handshake_on_paused)
   g_signal_connect (G_OBJECT (fakesink), "preroll-handoff",
       G_CALLBACK (fakesink_dtlsenc_client_preroll_hand_off), loop);
 
-  g_object_set (G_OBJECT (dtlsenc_client), "channel-id", "client-id", NULL);
+  g_object_set (G_OBJECT (dtlsenc_client), "connection-id", "client-id", NULL);
   g_object_set (G_OBJECT (dtlsenc_client), "is-client", TRUE, NULL);
-  g_object_set (G_OBJECT (dtlsdec_client), "channel-id", "client-id", NULL);
-  g_object_set (G_OBJECT (dtlsdec_client), "is-client", TRUE, NULL);
+  g_object_set (G_OBJECT (dtlsdec_client), "connection-id", "client-id", NULL);
   g_object_set (G_OBJECT (dtlsdec_client), "certificate-pem-file",
       cert_key_pem_file, NULL);
 
@@ -272,17 +271,15 @@ GST_START_TEST (test_dtls_send_recv_data)
   g_object_set (G_OBJECT (fakesrc_client), "sizetype", 2, NULL);
   g_object_set (G_OBJECT (fakesrc_server), "sizetype", 2, NULL);
 
-  g_object_set (G_OBJECT (dtlsenc_client), "channel-id", "client-id", NULL);
+  g_object_set (G_OBJECT (dtlsenc_client), "connection-id", "client-id", NULL);
   g_object_set (G_OBJECT (dtlsenc_client), "is-client", TRUE, NULL);
-  g_object_set (G_OBJECT (dtlsdec_client), "channel-id", "client-id", NULL);
-  g_object_set (G_OBJECT (dtlsdec_client), "is-client", TRUE, NULL);
+  g_object_set (G_OBJECT (dtlsdec_client), "connection-id", "client-id", NULL);
   g_object_set (G_OBJECT (dtlsdec_client), "certificate-pem-file",
       cert_key_pem_file, NULL);
 
-  g_object_set (G_OBJECT (dtlsenc_server), "channel-id", "server-id", NULL);
+  g_object_set (G_OBJECT (dtlsenc_server), "connection-id", "server-id", NULL);
   g_object_set (G_OBJECT (dtlsenc_server), "is-client", FALSE, NULL);
-  g_object_set (G_OBJECT (dtlsdec_server), "channel-id", "server-id", NULL);
-  g_object_set (G_OBJECT (dtlsdec_server), "is-client", FALSE, NULL);
+  g_object_set (G_OBJECT (dtlsdec_server), "connection-id", "server-id", NULL);
   g_object_set (G_OBJECT (dtlsdec_server), "certificate-pem-file",
       cert_key_pem_file, NULL);
 
