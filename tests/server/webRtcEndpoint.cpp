@@ -40,8 +40,11 @@ init_internal()
   moduleManager.loadModulesFromDirectories ("../../src/server");
 
   config.add ("configPath", "../../../tests" );
-  config.add ("modules.kurento.SdpEndpoint.sdpPattern", "sdp_pattern.txt");
-  config.add ("modules.kurento.SdpEndpoint.configPath", "../../../tests");
+  config.add ("modules.kurento.SdpEndpoint.numAudioMedias", 1);
+  config.add ("modules.kurento.SdpEndpoint.numVideoMedias", 1);
+  config.add ("modules.SdpEndpoint.audioCodecs",
+              "[{\"name\" : \"opus/48000/2\", \"properties\" : {} }]");
+//  config.add ("modules.SdpEndpoint.videoCodecs", "[{\"name\" : \"VP8/90000\", \"properties\" : {} }]");
 
   mediaPipelineId = moduleManager.getFactory ("MediaPipeline")->createObject (
                       config, "",
