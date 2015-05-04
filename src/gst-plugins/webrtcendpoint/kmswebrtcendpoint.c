@@ -99,7 +99,6 @@ static guint kms_webrtc_endpoint_signals[LAST_SIGNAL] = { 0 };
 
 struct _KmsWebrtcEndpointPrivate
 {
-  KmsLoop *loop;
   GMainContext *context;
   gchar *tmp_dir;
   gchar *certificate_pem_file;
@@ -1137,7 +1136,6 @@ kms_webrtc_endpoint_dispose (GObject * object)
   KMS_ELEMENT_LOCK (self);
 
   g_clear_object (&self->priv->agent);
-  g_clear_object (&self->priv->loop);
 
   KMS_ELEMENT_UNLOCK (self);
 
@@ -1312,10 +1310,7 @@ kms_webrtc_endpoint_init (KmsWebrtcEndpoint * self)
   self->priv = KMS_WEBRTC_ENDPOINT_GET_PRIVATE (self);
 
   self->priv->tmp_dir = g_strdup (g_mkdtemp_full (t, FILE_PERMISIONS));
-
-  self->priv->loop = kms_loop_new ();
-
-  g_object_get (self->priv->loop, "context", &self->priv->context, NULL);
+  self->priv->context = g_main_context_ref_thread_default ();
 
   self->priv->agent =
       nice_agent_new (self->priv->context, NICE_COMPATIBILITY_RFC5245);
